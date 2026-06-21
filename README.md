@@ -383,9 +383,6 @@ rtos-vibration-predictive-maintenance/
 │   └── model_performance/       # Confusion matrix, accuracy reports
 ├── config/
 │   └── system_config.h.template
-├── docs/
-│   ├── architecture.md
-│   └── wiring_diagram.png
 ├── scripts/
 │   └── data_collection.py       # Host-side data capture utility
 └── README.md
