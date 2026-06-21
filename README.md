@@ -359,6 +359,37 @@ Once both nodes are flashed and connected to the same Wi-Fi network:
 2. The dashboard will display real-time machine health scores, vibration trends, and alert logs
 3. The ESP32-C3 IP address is printed to the serial monitor on boot
 
+## Project Structure
+ 
+```
+rtos-vibration-predictive-maintenance/
+├── firmware/
+│   ├── inference-node/          # ESP32 main firmware (FreeRTOS + TinyML)
+│   │   ├── main/
+│   │   │   ├── sensor_task.c    # Task 1: Sensor Acquisition
+│   │   │   ├── inference_task.c # Task 2: TinyML Inference
+│   │   │   ├── alert_task.c     # Task 3: Alert Handling
+│   │   │   ├── dashboard_task.c # Task 4: Dashboard Communication
+│   │   │   └── main.c           # FreeRTOS task registration & init
+│   │   └── components/
+│   │       └── ei-model/        # Edge Impulse C++ SDK & exported model
+│   └── dashboard-node/          # ESP32-C3 dashboard firmware
+│       └── main/
+│           ├── web_server.c     # HTTP + WebSocket server
+│           └── dashboard_ui.h   # Embedded HTML/JS dashboard
+├── model/
+│   ├── training_data/           # Raw vibration dataset (CSV)
+│   ├── edge_impulse_project/    # Edge Impulse project export
+│   └── model_performance/       # Confusion matrix, accuracy reports
+├── config/
+│   └── system_config.h.template
+├── docs/
+│   ├── architecture.md
+│   └── wiring_diagram.png
+├── scripts/
+│   └── data_collection.py       # Host-side data capture utility
+└── README.md
+```
 
 ## Performance Summary
 
