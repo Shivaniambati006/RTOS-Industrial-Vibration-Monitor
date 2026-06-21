@@ -1,16 +1,15 @@
 # RTOS-Based Industrial Vibration Monitoring & Predictive Maintenance System
 
 <p align="center">
+  <img src="./images/pic.png" alt="Project Architecture and CI/CD Poster" width="80%">
+</p>
+<p align="center">
   <img src="https://img.shields.io/badge/Platform-ESP32%20%7C%20ESP32--C3-blue?style=for-the-badge&logo=espressif" />
   <img src="https://img.shields.io/badge/RTOS-FreeRTOS-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/AI-TinyML%20%7C%20Edge%20Impulse-orange?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Language-C%2FC%2B%2B-lightgrey?style=for-the-badge&logo=c%2B%2B" />
   <img src="https://img.shields.io/badge/Inference%20Latency-%3C%2076ms-brightgreen?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Model%20Accuracy-89%25-success?style=for-the-badge" />
-</p>
-
-<p align="center">
-  <img src="pic.png" alt="Project Architecture and CI/CD Poster" width="80%">
 </p>
 
 ## Project Overview
@@ -33,7 +32,6 @@ This is not a prototype. Every architectural decision — from task isolation to
 - **Interrupt-Driven Sensor Acquisition** — Accelerometer sampling is driven by hardware interrupts to guarantee consistent, jitter-free data capture at the configured sampling rate.
 - **Low-Power & Embedded-First** — Designed specifically for resource-constrained microcontrollers; the entire system runs within the ESP32's 520 KB SRAM footprint.
 
----
 
 ## System Architecture
 
@@ -96,7 +94,6 @@ Blocked on `inferenceResultQueue`. Applies configurable fault-class thresholds a
 **Task 4 — Dashboard Communication**
 Subscribes to `inferenceResultQueue` (shared with Task 3 via a broadcast pattern). Serializes health scores, classification results, raw vibration envelopes, and alert states into a JSON payload and transmits over MQTT or WebSocket to the ESP32-C3 dashboard node. Implements connection watchdog and automatic reconnect logic for robust Wi-Fi operation.
 
----
 
 ## TinyML Model Details
 
@@ -167,8 +164,6 @@ These frequency-domain features serve as robust, rotation-speed-invariant repres
 
 > The model was validated on a held-out test set representative of real-world industrial operating conditions. Quantization from FP32 to INT8 resulted in less than 1.2% accuracy degradation while achieving a 4× reduction in inference time and memory footprint.
 
----
-
 ## Dashboard & Monitoring
 
 The **ESP32-C3** serves as a dedicated dashboard node, receiving structured telemetry from the main ESP32 inference engine over Wi-Fi (MQTT or WebSocket) and rendering a live web-based monitoring interface accessible from any browser on the local network.
@@ -209,8 +204,6 @@ ESP32 (Inference Node)          ESP32-C3 (Dashboard Node)
         │                                │
 ```
 
----
-
 ## Tech Stack & Hardware
 
 ### Hardware
@@ -236,7 +229,6 @@ ESP32 (Inference Node)          ESP32-C3 (Dashboard Node)
 | **ArduinoJSON / cJSON**    | Efficient JSON serialization for telemetry payloads     |
 | **CMake / Ninja**          | Build system                                            |
 
----
 
 ## Getting Started
 
@@ -367,41 +359,6 @@ Once both nodes are flashed and connected to the same Wi-Fi network:
 2. The dashboard will display real-time machine health scores, vibration trends, and alert logs
 3. The ESP32-C3 IP address is printed to the serial monitor on boot
 
----
-
-## Project Structure
-
-```
-rtos-vibration-predictive-maintenance/
-├── firmware/
-│   ├── inference-node/          # ESP32 main firmware (FreeRTOS + TinyML)
-│   │   ├── main/
-│   │   │   ├── sensor_task.c    # Task 1: Sensor Acquisition
-│   │   │   ├── inference_task.c # Task 2: TinyML Inference
-│   │   │   ├── alert_task.c     # Task 3: Alert Handling
-│   │   │   ├── dashboard_task.c # Task 4: Dashboard Communication
-│   │   │   └── main.c           # FreeRTOS task registration & init
-│   │   └── components/
-│   │       └── ei-model/        # Edge Impulse C++ SDK & exported model
-│   └── dashboard-node/          # ESP32-C3 dashboard firmware
-│       └── main/
-│           ├── web_server.c     # HTTP + WebSocket server
-│           └── dashboard_ui.h   # Embedded HTML/JS dashboard
-├── model/
-│   ├── training_data/           # Raw vibration dataset (CSV)
-│   ├── edge_impulse_project/    # Edge Impulse project export
-│   └── model_performance/       # Confusion matrix, accuracy reports
-├── config/
-│   └── system_config.h.template
-├── docs/
-│   ├── architecture.md
-│   └── wiring_diagram.png
-├── scripts/
-│   └── data_collection.py       # Host-side data capture utility
-└── README.md
-```
-
----
 
 ## Performance Summary
 
@@ -417,7 +374,6 @@ rtos-vibration-predictive-maintenance/
 | Peak Inference RAM           | ~28 KB          |
 | Target MCU                   | ESP32 / ESP32-C3|
 
----
 
 ## Contributing
 
@@ -429,13 +385,10 @@ Contributions are welcome. Please open an issue to discuss proposed changes befo
 4. Push to the branch (`git push origin feature/your-feature-name`)
 5. Open a Pull Request
 
----
 
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
----
 
 <p align="center">
   Built with precision for industrial reliability &mdash; where every millisecond and every byte matters.
